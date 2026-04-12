@@ -25,14 +25,15 @@ load_dotenv()
 
 # Validate required environment variables before importing agents
 REQUIRED_ENV_VARS = [
-    "ANTHROPIC_API_KEY",
+    "OPENAI_API_KEY",
     "GITHUB_TOKEN",
     "GITHUB_REPO",
     "SLACK_BOT_TOKEN",
     "SLACK_CHANNEL",
-    "SENDGRID_API_KEY",
-    "FROM_EMAIL",
-    "TO_EMAIL",
+    # SendGrid is optional — email send is skipped if these are absent
+    # "SENDGRID_API_KEY",
+    # "FROM_EMAIL",
+    # "TO_EMAIL",
 ]
 
 def check_env() -> None:

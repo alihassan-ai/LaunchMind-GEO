@@ -3,7 +3,7 @@ Marketing Agent — Growth Marketer.
 
 Reads the product spec and PR URL from the CEO, then:
   1. Uses an LLM to generate: tagline, product description, cold email, 3 social posts
-  2. Sends a cold outreach email via SendGrid
+  2. Sends a cold outreach email via SendGrid (skipped if SENDGRID_API_KEY not set)
   3. Posts a launch announcement to Slack using Block Kit
   4. Returns all copy as structured JSON to the CEO
 """
@@ -115,14 +115,23 @@ Return exactly this JSON:
         return copy
 
     # ------------------------------------------------------------------
-    # SendGrid — Send cold outreach email
+    # SendGrid — Send cold outreach email (optional)
     # ------------------------------------------------------------------
     def _send_email(self, copy: dict) -> None:
-        print("  [MARKETING] Sending email via SendGrid...")
-
         cold_email = copy.get("cold_email", {})
-        subject = cold_email.get("subject", "GeoRank: Be the LLM's Recommended Store")
+        subject = cold_email.get("subject", "")
         body_text = cold_email.get("body", "")
+
+        # Always print the generated copy so it appears in the demo terminal
+        print("  [MARKETING] Cold email generated:")
+        print(f"    Subject : {subject}")
+        print(f"    Body    : {body_text[:200]}...")
+
+        if not SENDGRID_API_KEY:
+            print("  [MARKETING] SENDGRID_API_KEY not set — skipping email send")
+            return
+
+        print("  [MARKETING] Sending email via SendGrid...")
 
         html_body = f"""
 <!DOCTYPE html>
