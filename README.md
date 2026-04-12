@@ -118,6 +118,6 @@ python main.py
 
 | Name | Agent |
 |---|---|
-| Member 1 | CEO Agent |
-| Member 2 | Product + Engineer Agents |
-| Member 3 | Marketing + QA Agents |
+| Ali | CEO Agent + Marketing + QA Agents |
+| Saamer | Product + Engineer Agents |
+
